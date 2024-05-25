@@ -1,7 +1,6 @@
 # 将指定目录下的所有PDF文件合并成一个PDF文件
 from pypdf import PdfWriter
 import os
-import glob
 
 # 指定PDF文件所在目录
 filePath = "/Users/ss/Desktop"
@@ -15,8 +14,9 @@ def find_pdf_files(directory):
     # 遍历目录及其子目录  
     for root, dirs, files in os.walk(directory):  
         # 使用glob模块匹配PDF文件  
-        for file in glob.glob(os.path.join(root, '*.pdf')):  
-            pdf_files.append(file)  
+        for file in files:
+            if file.lower().endswith('.pdf'):
+                pdf_files.append(os.path.join(root, file))
   
     pdf_files.sort()
     return pdf_files  
